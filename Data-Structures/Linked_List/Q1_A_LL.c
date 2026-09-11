@@ -106,7 +106,7 @@ int insertSortedLL(LinkedList *ll, int item)
 	{
 		// int arr_size = ll->size;
 		// int arr[arr_size]; 배열에 값 넣고 다시 순회 하면서 비교해야하므로 X				
-		bool finishFlag = false;
+		// bool finishFlag = false; 코드 단순화 위한 주석처리
 
 		ListNode *cur;
 		cur = ll->head;
@@ -117,7 +117,8 @@ int insertSortedLL(LinkedList *ll, int item)
 		// 2. 인덱스가 중간에 있는 경우
 		int index = 0;
 
-		while (!finishFlag) 
+		// while (!finishFlag) 코드 단순화 위한 주석처리
+		while (cur != NULL) 
 		{			
 			// 입력 값이 리스트에 이미 있는 경우 -1 반환(해시 집합 있으면 좋을 것 같음)
 			if (cur->item == item) 
@@ -134,8 +135,8 @@ int insertSortedLL(LinkedList *ll, int item)
 				// 다음 노드가 없다면 마지막에 삽입.
 				if (cur->next == NULL) 
 				{
-					insertNode(ll, index, item);				
-					return index;
+					insertNode(ll, index, item);	
+					break;								
 				}				
 				// 아니면 현재 노드를 다음 노드에 연결
 				cur = cur->next;					
@@ -147,9 +148,44 @@ int insertSortedLL(LinkedList *ll, int item)
 			if (cur->item > item) 
 			{
 				insertNode(ll, index, item);				
-				return index;
+				break;
 			}
-		}		
+		}
+
+		return index;
+		// while (!finishFlag) //코드 단순화를 위한 주석처리
+		// {			
+		// 	// 입력 값이 리스트에 이미 있는 경우 -1 반환(해시 집합 있으면 좋을 것 같음)
+		// 	if (cur->item == item) 
+		// 	{
+		// 		return -1;
+		// 	}
+
+		// 	// 현재 탐색 중인 노드의 값이 입력 값보다 작은 경우 
+		// 	if (cur->item < item)	
+		// 	{
+		// 		// 인덱스 카운트 증가
+		// 		index++;
+
+		// 		// 다음 노드가 없다면 마지막에 삽입.
+		// 		if (cur->next == NULL) 
+		// 		{
+		// 			insertNode(ll, index, item);				
+		// 			return index;
+		// 		}				
+		// 		// 아니면 현재 노드를 다음 노드에 연결
+		// 		cur = cur->next;					
+		// 		continue;
+		// 	}
+			
+		// 	// 현재 탐색 중인 노드의 값이 입력 값보다 큰 경우  
+		// 	// 현재 노드의 인덱스 저장한 뒤 삽입 함수 호출.
+		// 	if (cur->item > item) 
+		// 	{
+		// 		insertNode(ll, index, item);				
+		// 		return index;
+		// 	}
+		// }		
 	}	
 }
 

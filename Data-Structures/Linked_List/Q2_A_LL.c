@@ -100,10 +100,79 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
+/*
+첫번째 리스트와 두번째 리스트 합치는 함수
+예시 1)
+LinkedList1: 1, 2, 3
+LinkedList2: 4, 5, 6, 7
+=>alternateMergeLinkedList(LinkedList1, LinkedList2)
+LinkedList1: 1, 4, 2, 5, 3, 6
+LinkedList2: 7
+
+예시 2)
+LinkedList1: 1, 5, 7, 3, 9, 11
+LinkedList2: 6, 10, 2, 4
+=>alternateMergeLinkedList(LinkedList1, LinkedList2)
+LinkedList1: 1, 6, 5, 10, 7, 2, 3, 4, 9, 11
+LinkedList2: empty
+
+첫번째 리스트 원소들 사이에 두번째 리스트를 사이에 끼워 넣는 형식->끼워 넣는 기준 표현 필요
+#1 LL1이 LL2보다 작거나 같은 경우
+LL2의 노드는 LL1의 크기 만큼만 넣는다.
+
+#2 LL1이 LL2보다 큰 경우 
+LL2의 노드를 전부 LL1에 넣는다.
+
+아이디어)
+각 리스트의 노드를 순회하며 연결.
+L1의 현재 노드에 L2의 현재 노드 연결.
+1) 현재노드를 L1, L2의 헤드로 초기화
+2) L1 다음 노드 임시 저장
+3) 현재 노드 다음 노드를 L2의 현재 노드로 연결
+4) 현재 노드 = 현재노드의 다음노드로 초기화
+5) 현재 노드에 기존 L1의 다음 노드 연결
+6) 현재 노드 = 현재노드의 다음노드로 초기화
+
+#1 순회 횟수: LL1->size
+cur_1 = LL1->head
+cur_2 = LL2->head
+
+루프
+temp_1 = cur_1->next
+cur_1->next = cur_2
+cur_1 = cur_1->next
+
+cur_1->next = temp_1
+cur_1 = cur_1->next
+
+*/
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	// 현재 노드 초기화
+    ListNode *cur1, *cur2;
+	cur1 = ll1->head;
+	cur2 = ll2->head;
+
+	// 현재 리스트1 또는 리스트2의 노드가 비어있으면 종료(둘다 NULL이 아니어야함)
+	while (cur1 != NULL && cur2 != NULL) 
+	{		
+		ListNode *temp1, *temp2;		
+		
+		temp1 = cur1->next;	// 현재 L1 노드의 다음 노드 저장
+		temp2 = cur2->next; // 현재 L2 노드의 다음 노드 저장
+
+		cur1->next = cur2; // 다음 L1 노드에 현재 L2 노드 연결(L1 cur->L2 cur)				
+		cur2 = temp2; // 현재 L2 노드를 temp2로 초기화(L2 cur = temp 2)
+		ll1->size++; // L1 사이즈 1 증가
+
+		ll2->head = cur2;	// 리스트2의 헤드를 초기화(L2 head = cur2)
+		cur1 = cur1->next; // 현재 L1 노드를 다음노드로 초기화
+		ll2->size--; // L2 사이즈 1 감소
+
+		cur1->next = temp1;
+		cur1 = cur1->next;		
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

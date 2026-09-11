@@ -71,7 +71,7 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			// removeAllItems(&ll); 임시 주석처리(pdf 테스트 케이스 따라가다보면 결과가 다르게 나타남)
 			break;
 		case 0:
 			removeAllItems(&ll);

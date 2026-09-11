@@ -52,7 +52,10 @@ int main()
 
 	//Initialize the Binary Search Tree as an empty Binary Search Tree
 	BSTNode *root;
-	root = NULL;
+	root = NULL;	
+
+	// Initialize Queue Struct Variable 	
+	Queue *q = NULL;
 
 	printf("1: Insert an integer into the binary search tree;\n");
 	printf("2: Print the level-order traversal of the binary search tree;\n");
@@ -91,9 +94,28 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 // BST : 루트의 왼쪽은 루트보다 작은 값, 루트의 오른쪽은 루트보다 큰 값으로 정렬
+// main()에서 switch문을 통해 값을 삽입하면 알아서 정렬됨
+// 정렬된 트리의 순회 순서를 printf로 출력
+// 중위 순회(왼쪽->루트->오른쪽 순서로 순회)
+// 왼쪽 자식 노드에 값이 있으면 왼쪽 자식 노드로 이동(큐에 넣지 않음)
+// 없으면 '루트 값을 큐에 넣고' 오른쪽 자식 노드로 이동
+// 종료 조건: 루트가 비었을 때
 void levelOrderTraversal(BSTNode* root)
-{
-    /* add your code here */
+{    
+	// root가 없을 때 종료
+	if (root == NULL) {
+		return;
+	}
+	
+	if (root->left == NULL) // root 왼쪽 자식 노드 없을 때 큐에 root넣고 오른쪽 이동		
+	{ 		
+		// enqueue(*(*q->head), *(q->tail), root);
+		levelOrderTraversal(root->right);		
+	}
+	else // root 왼쪽 자식 있을 때.
+	{ 		
+		levelOrderTraversal(root->left);		
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

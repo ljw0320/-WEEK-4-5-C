@@ -94,6 +94,8 @@ int main()
 */
 void moveOddItemsToBack(LinkedList *ll)
 {	
+	if (ll == NULL)	return;
+	
 	const int iter_count = ll->size;
 	ListNode *cur, *tail;
 	cur = ll->head;
@@ -110,8 +112,9 @@ void moveOddItemsToBack(LinkedList *ll)
 	}
 
 	// 현재 노드를 입력된 리스트의 헤드로 초기화	
-
+	ListNode *origin_tail;
 	ListNode *temp, *prev;
+	origin_tail = tail;
 	cur = ll->head;		
 
 	// 홀수를 tail노드 뒤로 이동
@@ -119,8 +122,8 @@ void moveOddItemsToBack(LinkedList *ll)
 	{		
 		temp = cur->next;		
 
-		if (cur->item%2 != 0)
-		{
+		if (((cur->item)%2) != 0 && cur != tail)
+		{			
 			if (cur == ll->head) 
 			{
 				ll->head = cur->next;
@@ -129,77 +132,23 @@ void moveOddItemsToBack(LinkedList *ll)
 			{
 				prev->next = cur->next;
 			}
-
+			
 			tail->next = cur;
-			tail = tail->next;
+			tail = tail->next;			
+			tail->next = NULL;			
 		}		
-		prev = cur;
+
+		if ((cur->item)%2 == 0)
+		{
+			prev = cur;
+		}
+
+		if (cur == origin_tail)
+		{
+			break;
+		}
 		cur = temp;
 	}
-
-
-	// const int iter_count = ll->size;
-	// // LinkedList *newll;
-	// LinkedList newll;
-	// ListNode *prev, *cur;
-	// ListNode *prev_new, *cur_new;
-
-	// // 입력된 연결 리스트 노드
-	// prev = NULL;
-	// cur = ll->head;	
-
-	// // 새로 정의한 연결 리스트 노드
-	// newll.head = NULL;
-	// newll.size = 0;
-	// prev_new = NULL;
-	// cur_new = newll.head;
-
-	// // 반복문
-	// // 반복 횟수 = 입력된 연결리스트 크기
-	// // 매 반복 마다 아래는 반드시 수행
-	// // - 현재 노드를 이전 노드에 저장
-	// // - 현재 노드를 다음 노드로 변경
-	// for (int i=0; i < iter_count; i++) 
-	// {		
-	// 	if (cur == NULL) break;
-
-	// 	ListNode *temp;
-	// 	temp = cur->next;
-
-	// 	prev = cur;
-
-	// 	if (cur->item % 2 == 0)	 // 현재 노드의 값이 짝수인 경우
-	// 	{
-	// 		ll->size--;
-
-	// 		if (cur == ll->head) // 현재 노드가 '헤드'라면 다음 노드를 헤드로 초기화.
-	// 		{
-	// 			ll->head = cur->next;
-	// 		}
-	// 		else // 중간 노드라면 이전 노드를 현재 노드에 연결
-	// 		{
-	// 			prev->next = cur->next;
-	// 		}
-
-	// 		if (newll.head == NULL) // 짝수 연결리스트 헤드 비어있을 경우 초기화
-	// 		{
-	// 			newll.head = cur;	
-	// 			cur_new = newll.head; // 왜 초기화해야하지?						
-	// 		}
-	// 		else // 이미 있다면 현재 노드 뒤에 붙임
-	// 		{
-	// 			cur_new = cur;
-	// 		}
-
-	// 		cur_new->next = NULL;	// 다음 노드 NULL로 초기화
-	// 		cur_new = cur_new->next; // 현재 짝수 노드를 다음 짝수 노드로 초기화
-	// 	}		
-				
-	// 	cur = temp;
-	// }
-
-
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

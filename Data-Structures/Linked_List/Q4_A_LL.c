@@ -84,9 +84,64 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 리스트 처음부터 순회해서 꼬리 노드 뒤에 이어 붙이기.
+// 1. 꼬리노드 찾기
+// 2. 짝수면 꼬리노드 뒤에 이어 붙이기
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	if (ll == NULL)
+	{
+		printf("ll is NULL");
+		return;
+	}
+
+	ListNode *tail, *cur;
+	tail = NULL;
+	cur = ll->head;
+
+	while (cur->next != NULL) 
+	{
+		cur = cur->next;
+	}
+	tail = cur;	
+
+	ListNode *prev, *originTail, *temp;
+	originTail = tail;
+	prev = NULL;
+	cur = ll->head;
+
+	for (int i=0; i < ll->size; i++)
+	{
+		if (cur == tail)	
+			break;
+		
+		temp = cur->next;
+
+		if ((cur->item)%2 != 0)
+		{
+			prev = cur;
+		}
+
+		if ((cur->item)%2 == 0)
+		{
+			if (cur == ll->head)
+			{
+				ll->head = ll->head->next;				
+			}
+			else
+			{				
+				prev->next = cur->next;				
+			}
+			tail->next = cur;
+			tail = tail->next;
+			tail->next = NULL;
+		}
+
+		if (cur == originTail)
+			break;
+
+		cur = temp;		
+	}	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

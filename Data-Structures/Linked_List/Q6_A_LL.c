@@ -23,7 +23,13 @@ typedef struct _linkedlist
 	ListNode *head;
 } LinkedList;			// You should not change the definition of LinkedList
 
-
+typedef enum 
+{
+	None,
+	FirstMax, 
+	MidMax, 
+	FinMax	
+} MaxCase;
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
@@ -46,8 +52,7 @@ int main()
 	LinkedList ll;
 	//Initialize the linked list 1 as an empty linked list
 	ll.head = NULL;
-	ll.size = 0;
-
+	ll.size = 0;	
 
 	printf("1: Insert an integer to the linked list:\n");
 	printf("2: Move the largest stored value to the front of the list:\n");
@@ -86,12 +91,73 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 /*
-	입력된 연결리스트에서 최댓값을 가진 노드를 가장 왼쪽(헤드)으로 옮김//
+	입력된 연결리스트에서 최댓값을 가진 노드를 가장 왼쪽(헤드)으로 옮김
 	나머지는 순서를 그대로 유지
+	입력값 : ptrHead의 주소 
+	1) 리스트를 순회하면서 최댓값을 찾음
+	2) 최댓값 위치의 노드를 분리
+		- case 1: 처음 위치에 있는 경우(return)
+		- case 2: 중간에 있는 경우(이전 노드를 다다음 노드랑 연결)
+		- case 3: 끝에 있는 경우(이전 노드의 다음 노드 = NULL)
+	3) 분리한 노드를 헤드에 연결
 */
 int moveMaxToFront(ListNode **ptrHead)
 {
-    
+	if (*ptrHead == NULL) return -1;
+
+    // 1)
+	ListNode *preNode, *curNode, *nextNode, *maxNode, *tempNode;		
+	preNode = *ptrHead;
+	curNode = *ptrHead;		
+	nextNode = NULL;
+	maxNode = curNode;
+
+	while (curNode->next != NULL)
+	{				
+		tempNode = curNode;
+		curNode = curNode->next;		
+
+		if ((curNode->item) > (maxNode->item))		
+		{			
+			preNode = tempNode;
+			maxNode = curNode;			
+			nextNode = curNode->next;
+		}			
+	}
+	
+	// 2)
+	MaxCase maxcase = None;
+
+	if (maxNode == *ptrHead) {
+		maxcase = FirstMax;
+	} else if (nextNode == NULL) {
+		maxcase = FinMax;
+	} else {
+		maxcase = MidMax;
+	}
+
+	switch (maxcase)
+	{
+		case FirstMax:
+			return 0;			
+			break;
+
+		case MidMax:
+			preNode->next = nextNode;
+			maxNode->next = NULL;
+			break;
+
+		case FinMax:
+			preNode->next = NULL;
+			maxNode->next = NULL;			
+			break;
+	}
+
+	// 3)	
+	maxNode->next = *ptrHead;
+	*ptrHead = maxNode;
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

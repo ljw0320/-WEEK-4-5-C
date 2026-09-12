@@ -151,13 +151,14 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
 	// 현재 노드 초기화
     ListNode *cur1, *cur2;
+	ListNode *temp1, *temp2;	
 	cur1 = ll1->head;
 	cur2 = ll2->head;
 
 	// 현재 리스트1 또는 리스트2의 노드가 비어있으면 종료(둘다 NULL이 아니어야함)
 	while (cur1 != NULL && cur2 != NULL) 
 	{		
-		ListNode *temp1, *temp2;		
+		// ListNode *temp1, *temp2;		
 		
 		temp1 = cur1->next;	// 현재 L1 노드의 다음 노드 저장
 		temp2 = cur2->next; // 현재 L2 노드의 다음 노드 저장

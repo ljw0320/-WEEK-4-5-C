@@ -129,26 +129,45 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 
 	for (int i=0; i < frontSize; i++)
 	{
-		tempLL = curLL->next; // LL
-
+		tempLL = curLL->next;
 		curFL->item = curLL->item;	
-		curFL->next = malloc(sizeof(ListNode));
-		curFL = curFL->next;
 
-		ll->head = tempLL;	// LL	
-		ll->size--; // LL
-		curLL = tempLL; // LL
+		if (i <= (frontSize-1))
+		{
+			curFL->next = malloc(sizeof(ListNode));
+			curFL = curFL->next;
+		}
+
+		ll->head = tempLL;		
+		ll->size--; 
+		curLL = tempLL; 
 	}	
 
 	resultBackList->head = malloc(sizeof(ListNode));	
 	resultBackList->size = backSize;
 
 	ListNode *curBL;
+	curBL = resultBackList->head;
 
 	for (int i=0; i < backSize; i++)
 	{
+		if (curLL == NULL)
+		{
+			break;
+		}
 		tempLL = curLL->next;
-		
+
+		curBL->item = curLL->item;
+
+		if (curLL->next != NULL)		
+		{
+			curBL->next = malloc(sizeof(ListNode));
+			curBL = curBL->next;
+		}		
+
+		ll->head = tempLL;	
+		ll->size--; 
+		curLL = tempLL;
 	}
 }
 

@@ -108,7 +108,7 @@ int main()
 // 뒤쪽 절반 리스트는 남은것 부터 붙여줌.
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	if (ll == NULL) 
+	if (ll == NULL || ll->head == NULL) 
 	{	
 		printf("List is empty!");
 		return;
@@ -132,7 +132,7 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 		tempLL = curLL->next;
 		curFL->item = curLL->item;	
 
-		if (i <= (frontSize-1))
+		if (i <= (frontSize-2))
 		{
 			curFL->next = malloc(sizeof(ListNode));
 			curFL = curFL->next;
@@ -140,8 +140,17 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 
 		ll->head = tempLL;		
 		ll->size--; 
-		curLL = tempLL; 
+		curLL = tempLL;		
 	}	
+
+	curFL->next = NULL;
+	
+	if (ll->size == 0) 
+	{
+		printf("LL Number is: %d\n", ll->size); 
+		printf("LL size(Byte) is: %zu\n", sizeof(ll)); 
+		return;
+	}
 
 	resultBackList->head = malloc(sizeof(ListNode));	
 	resultBackList->size = backSize;
@@ -168,9 +177,13 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 		ll->head = tempLL;	
 		ll->size--; 
 		curLL = tempLL;
-	}
-}
+	}		
+	curBL->next = NULL;
 
+	printf("LL Number is: %d\n", ll->size); 
+	printf("LL size(Byte) is: %zu\n", sizeof(ll)); 
+}
+//
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){

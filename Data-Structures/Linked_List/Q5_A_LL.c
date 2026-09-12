@@ -99,10 +99,57 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 리스트 절반으로 쪼개는 함수
+// 앞 리스트에는 앞쪽 절반, 뒤 리스트에는 뒤쪽 절반
+// 크기가 홀수이면 앞쪽에 하나 더 붙임 (2 3 5 6 7)이면 2 3 5 / 6 7
+// C언어에서는 타입이 int인 변수는 소수점을 버림
+// 따라서 리스트 size가 홀수라면 앞쪽 리스트를 +1해줌
+// 앞쪽 절반 리스트는 헤드부터 절반 크기만큼 순회해서 붙여줌
+// 뒤쪽 절반 리스트는 남은것 부터 붙여줌.
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	if (ll == NULL) 
+	{	
+		printf("List is empty!");
+		return;
+	}
+	
+	int halfSize = (ll->size)/2;
+	int frontSize, backSize;	
+
+	frontSize = ((ll->size)%2 == 0)? halfSize : halfSize+1;
+	backSize = halfSize;
+
+	resultFrontList->head = malloc(sizeof(ListNode));	
+	resultFrontList->size = frontSize;	
+
+	ListNode *curLL, *curFL, *tempLL;
+	curLL = ll->head;		
+	curFL = resultFrontList->head;	
+
+	for (int i=0; i < frontSize; i++)
+	{
+		tempLL = curLL->next; // LL
+
+		curFL->item = curLL->item;	
+		curFL->next = malloc(sizeof(ListNode));
+		curFL = curFL->next;
+
+		ll->head = tempLL;	// LL	
+		ll->size--; // LL
+		curLL = tempLL; // LL
+	}	
+
+	resultBackList->head = malloc(sizeof(ListNode));	
+	resultBackList->size = backSize;
+
+	ListNode *curBL;
+
+	for (int i=0; i < backSize; i++)
+	{
+		tempLL = curLL->next;
+		
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

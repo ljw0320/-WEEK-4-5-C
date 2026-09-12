@@ -107,7 +107,6 @@ void moveOddItemsToBack(LinkedList *ll)
 		{
 			tail = cur;
 		}
-
 		cur = cur->next;
 	}
 

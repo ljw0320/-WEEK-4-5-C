@@ -183,7 +183,7 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 	printf("LL Number is: %d\n", ll->size); 
 	printf("LL size(Byte) is: %zu\n", sizeof(ll)); 
 }
-//
+////
 ///////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){

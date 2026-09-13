@@ -35,6 +35,7 @@ ListNode * findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
 
+void RecursiveHelper(ListNode **ptrPreNode, ListNode **ptrCurNode);
 
 //////////////////////////// main() //////////////////////////////////////////////
 
@@ -87,12 +88,22 @@ int main()
 // 주어진 리스트를 뒤집는 함수
 // 재귀호출 사용
 // 기존 헤드가 꼬리가 되고, 기존 꼬리가 헤드가 된다.
-// 종료 조건 : 
+// 종료 조건 : tail노드(node->next = NULL)인 경우 
+// 재귀 호출 방법 : 현재 노드의 다음 노드로 이동
+// 방법 1 : 헬퍼 함수 사용
+// 방법 2 : 자체 재귀
+// 헤드의 주소를 입력값으로 받음
+// =>*ptrHead : head
 void RecursiveReverse(ListNode **ptrHead)
 {
-	ListNode *pre, *cur, *originHead;
-	pre = NULL;
+	if (*ptrHead == NULL) return;
 
+	ListNode *pre, *cur;
+
+	cur = *ptrHead;	
+	pre = NULL;	
+	
+	RecursiveHelper(&pre, &cur);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -216,4 +227,25 @@ void removeAllItems(LinkedList *ll)
 	}
 	ll->head = NULL;
 	ll->size = 0;
+}
+
+// 이전 노드를 다음 노드로 연결해주는 함수
+// 다음 노드->이전노드 연결
+// ptrPreNode->ptrCurNode  => ptrCurNode->ptrPreNode
+void RecursiveHelper(ListNode **ptrPreNode, ListNode **ptrCurNode)
+{		
+	if ((*ptrCurNode) == NULL) 
+		return;
+	
+	ListNode *preNode, *curNode, *nextNode; 	
+	curNode = *ptrCurNode;
+	preNode = *ptrPreNode;
+	nextNode = (*ptrCurNode)->next;	
+
+	(*ptrCurNode)->next = *ptrPreNode;	
+	*ptrCurNode = nextNode;	
+	// curNode->next = preNode;	
+	// printf("curNode : %d\n", curNode->item);	
+
+	RecursiveHelper(&preNode, &nextNode);
 }

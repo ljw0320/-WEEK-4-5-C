@@ -45,7 +45,7 @@ void removeAllItems(LinkedList *ll);
 ListNode * findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
-
+void recursiveHelper(Queue *q1, Queue *q2);
 //////////////////////////// main() //////////////////////////////////////////////
 
 int main()
@@ -99,17 +99,26 @@ int main()
 			printf("Choice unknown;\n");
 			break;
 		}
-
 	}
-
 	return 0;
 }
 
 ////////////////////////////////////////////////////////////
 
+// 재귀를 사용하여 큐를 뒤집는다.
+// 12345 -> 54321
+// dequeue : 왼쪽부터 꺼내서 어떤 큐에 넣음
+// 
 void recursiveReverse(Queue *q)
-{
-/* add your code here */
+{	
+	if (q->ll.size == 0)
+		return;
+
+	int item = dequeue(q);	
+
+	recursiveReverse(q);
+	
+	enqueue(q,item);
 }
 
 //////////////////////////////////////////////////////////////////

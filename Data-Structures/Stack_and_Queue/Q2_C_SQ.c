@@ -110,15 +110,27 @@ int main()
 
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 연결리스트로 스택 만들기
+// 헤드 부터 스택의 바닥에 쌓이도록 설계
+// [1 2 3] -> [3 2 1]
+// 반복문으로 풀어보기
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+    ListNode *cur_ll = ll->head;
+	ListNode *pre_ll = NULL;
+	ListNode *temp;
+
+	ListNode *cur_stack = s->ll.head;	
+
+	while (cur_stack)
+	{
+		
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

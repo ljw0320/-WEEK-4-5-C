@@ -94,7 +94,7 @@ int main()
 			removeOddValues(&q); // You need to code this function
 			printf("The resulting queue after removing odd integers is: ");
 			printList(&(q.ll));
-			removeAllItemsFromQueue(&q);
+			// removeAllItemsFromQueue(&q);
 			removeAllItems(&ll);
 			break;
 		case 0:
@@ -113,15 +113,58 @@ int main()
 
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 입력된 링크드 리스트로 큐 만듬
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	
+	ListNode *cur = ll->head;		
+
+	for (int  i=0; i < ll->size; i++)
+	{
+		enqueue(q, cur->item);	
+		cur = cur->next;	
+	}	
 }
 
+// 홀수 삭제
 void removeOddValues(Queue *q)
 {
-	
+	if (isEmptyQueue(q))
+		return;
+
+	ListNode *cur = q->ll.head;
+	ListNode *pre = NULL;
+	ListNode *temp;
+
+	int count = q->ll.size;
+
+	for (int i=0; i < count; i++) // count => q->ll.size 변경
+	{
+		temp = cur->next;
+
+		if ((cur->item)%2 != 0)
+		{
+			if (cur == q->ll.head)
+			{
+				q->ll.head = temp;				
+			}
+			else // else if + else => else 로 통합
+			{
+				pre->next = cur->next;
+			}
+			q->ll.size--;
+			free(cur);
+		}
+		else
+		{
+			pre = cur;
+		}
+		
+		cur = temp;
+	}
+
+	int size = q->ll.size;
+
+	printf("size: %d\n", size);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

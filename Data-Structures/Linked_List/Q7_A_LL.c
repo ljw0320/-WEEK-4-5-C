@@ -96,14 +96,12 @@ int main()
 // =>*ptrHead : head
 void RecursiveReverse(ListNode **ptrHead)
 {
-	if (*ptrHead == NULL) return;
+	if (*ptrHead == NULL || ptrHead == NULL) 
+		return;
 
-	ListNode *pre, *cur;
-
-	cur = *ptrHead;	
-	pre = NULL;	
+	ListNode *pre = NULL;		
 	
-	RecursiveHelper(&pre, &cur);
+	RecursiveHelper(&pre, ptrHead);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -230,22 +228,28 @@ void removeAllItems(LinkedList *ll)
 }
 
 // 이전 노드를 다음 노드로 연결해주는 함수
-// 다음 노드->이전노드 연결
+// 인자 : 이전 노드, 현재 노드
+// 헤드 노드를 다음 노드로 변경
 // ptrPreNode->ptrCurNode  => ptrCurNode->ptrPreNode
 void RecursiveHelper(ListNode **ptrPreNode, ListNode **ptrCurNode)
-{		
-	if ((*ptrCurNode) == NULL) 
+{				
+	if (*ptrCurNode == NULL) 
 		return;
+
+	// 현재 노드, 다음 노드 저장
+	ListNode *curNode = *ptrCurNode;
+	ListNode *nextNode = curNode->next;
 	
-	ListNode *preNode, *curNode, *nextNode; 	
-	curNode = *ptrCurNode;
-	preNode = *ptrPreNode;
-	nextNode = (*ptrCurNode)->next;	
+	// 헤드의 다음 노드를 이전 노드로 변경
+	curNode->next = *ptrPreNode;			
+	
+	// 마지막 노드라면 종료
+	if (nextNode == NULL) 
+		return;
 
-	(*ptrCurNode)->next = *ptrPreNode;	
+	// 다음 노드를 새로운 현재 노드로 설정
 	*ptrCurNode = nextNode;	
-	// curNode->next = preNode;	
-	// printf("curNode : %d\n", curNode->item);	
 
-	RecursiveHelper(&preNode, &nextNode);
+    // 현재 노드를 이전 노드로 넘기고 재귀 호출
+	RecursiveHelper(&curNode, ptrCurNode);	
 }

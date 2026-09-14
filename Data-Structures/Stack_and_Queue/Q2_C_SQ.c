@@ -122,9 +122,9 @@ void createStackFromLinkedList(LinkedList *ll, Stack *s)
 
 	ListNode *cur_stack = s->ll.head;	
 
-	while (cur_stack)
+	while (cur_ll->next != NULL)
 	{
-		
+
 	}
 }
 

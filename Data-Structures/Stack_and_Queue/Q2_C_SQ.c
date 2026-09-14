@@ -113,24 +113,43 @@ int main()
 // 연결리스트로 스택 만들기
 // 헤드 부터 스택의 바닥에 쌓이도록 설계
 // [1 2 3] -> [3 2 1]
-// 반복문으로 풀어보기
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    ListNode *cur_ll = ll->head;
-	ListNode *pre_ll = NULL;
-	ListNode *temp;
+	if (ll == NULL) return;
 
-	ListNode *cur_stack = s->ll.head;	
+    ListNode *cur_ll = ll->head;		
 
-	while (cur_ll->next != NULL)
+	while (cur_ll != NULL)
 	{
-
+		push(s, cur_ll->item);
+		cur_ll = cur_ll->next;
 	}
 }
 
 void removeEvenValues(Stack *s)
 {
-	
+	if (isEmptyStack(s))	
+		return;
+
+	ListNode *cur = s->ll.head;
+	ListNode *temp = NULL;
+	int idx = 0;
+
+	while (cur != NULL)
+	{		
+		temp = cur->next;
+
+		if (!(cur->item % 2))
+		{
+			removeNode(&(s->ll), idx);
+			if (s->ll.size == idx)
+			{
+				
+			}
+		}
+		cur = temp;
+		idx++;
+	}	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

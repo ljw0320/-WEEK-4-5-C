@@ -103,7 +103,75 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	if ((s->ll.size%2))
+	{
+		return 0;
+	}
+
+	// int count = ;
+	// int size = s->ll.size;
+	int pair[2];
+
+	pair[0] = -1;
+	pair[1] = -1;
+
+	while (s->ll.size != 0)
+	{
+		if (pair[0] == -1)
+		{
+			pair[0] = pop(s);
+			continue;
+		}
+
+		if (pair[1] == -1)
+		{
+			pair[1] = pop(s);			
+		}		
+
+		if (pair[0] != -1 && pair[1] != -1)		
+		{
+			if ((pair[0]-pair[1])==1)
+			{
+				pair[0] = pair[1] = -1;
+				continue;
+			}
+			else
+			{
+				return 0;
+			}
+		}			
+	}
+
+	return 1;
+
+	// for (count = 0; count < size; count++) => s->ll의 사이즈가 변하고 반복 횟수가 변할 수 비교할 때 점프를 하기 때문에 while이 적합함.
+	// {
+	// 	if (pair[0] == -1)
+	// 	{
+	// 		pair[0] = pop(s);
+	// 		continue;
+	// 	}
+
+	// 	if (pair[1] == -1)
+	// 	{
+	// 		pair[1] = pop(s);
+	// 		continue;
+	// 	}		
+
+	// 	if (pair[0] != -1 && pair[1] != -1)		
+	// 	{
+	// 		if (pair[1]-pair[0])
+	// 		{
+	// 			pair[0] = pair[1] = -1;
+	// 			continue;
+	// 		}
+	// 		else
+	// 		{
+	// 			return 0;
+	// 		}
+	// 	}
+	// }
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

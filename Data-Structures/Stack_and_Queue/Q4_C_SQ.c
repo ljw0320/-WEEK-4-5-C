@@ -109,10 +109,28 @@ int main()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
+// 스택을 이용하여 입력된 큐의 순서를 뒤집는 함수를 작성
+// 반복문 이용하여 큐의 노드들을 스택에 삽입
+// 스택에서 pop을 이용하여 하나씩 큐에 삽입
 void reverse(Queue *q)
 {
-/* add your code here */
+	ListNode *cur = q->ll.head;
+	ListNode *temp;
+	Stack *s;
+	s = malloc(sizeof(Stack));
+
+	while (cur != NULL)
+	{
+		temp = cur->next;		
+		push(s, cur->item);		
+		dequeue(q);
+		cur = temp;
+	}
+	
+	while (!isEmptyStack(s))
+	{
+		enqueue(q, pop(s));
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

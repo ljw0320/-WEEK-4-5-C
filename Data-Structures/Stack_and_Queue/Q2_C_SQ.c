@@ -137,14 +137,14 @@ void removeEvenValues(Stack *s)
 
 	while (cur != NULL)
 	{		
-		temp = cur->next;
+		temp = cur->next;//
 
 		if (!(cur->item % 2))
 		{
 			removeNode(&(s->ll), idx);
 			if (s->ll.size == idx)
 			{
-				
+
 			}
 		}
 		cur = temp;

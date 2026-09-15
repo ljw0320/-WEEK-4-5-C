@@ -93,11 +93,38 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 최대 높이를 구하는 함수
+// 밑으로 내려갈 때마다 높이가 1만큼 증가함
+//           1          ← 높이 4
+//         /   \
+//        2     3       ← 높이 3
+//       / \   / \
+//      4   5 6   7     ← 높이 2
+//     /
+//    8                 ← 높이 1
+//   /
+//  9                   ← 높이 0 (leaf)
+// 후위 순회로 탐색(왼쪽->오른쪽->노드)
+// 한번 내려갈 때마다 높이 +1
 int maxHeight(BTNode *node)
-
 {
-    /* add your code here */
+    int height1 = 0;
+    int height2 = 0;
+
+    if (node == NULL)
+    {
+        return -1;
+    }
+
+    // 왼쪽 노드 방문
+    height1++;
+    height1 = maxHeight(node->left);
+
+    // 오른쪽 노드 방문
+    height2++;
+    height2 = maxHeight(node->right);
+
+    return height1 >= height2? height1:height2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -217,3 +244,4 @@ void removeAll(BTNode **node){
         *node = NULL;
     }
 }
+

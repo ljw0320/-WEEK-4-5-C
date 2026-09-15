@@ -108,10 +108,32 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-
+/*
+입력된 스택의 value 전까지의 값을 지우는 함수
+way 1) 값을 앞에서 부터 지움
+way 2) 값을 뒤에서부터 꺼내서 따로 스택을 만들고 삽입
+*/
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	if (isEmptyStack(s))
+		return;		
+
+	int size = s->ll.size;
+	int values[size];
+	int idx = 0;
+
+	while (s->ll.size != 0)
+	{
+		values[size-idx-1] = pop(s);
+		idx++;
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		push(s, values[i]);
+		if (values[i] == value) 
+			break;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

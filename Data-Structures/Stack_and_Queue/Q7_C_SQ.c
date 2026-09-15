@@ -102,9 +102,55 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
+// expression: 문자열의 첫 번째 문자 주소를 저장하는 포인터
 int balanced(char *expression)
 {
-/* add your code here */
+	if (expression == NULL)
+	{
+		return 1;
+	}
+
+	int idx = 0;
+	Stack *s;
+	s->ll.head = NULL;
+	s->ll.size = 0;
+
+	while (*(expression+idx) != '\0')
+	{
+		char tempChar = *(expression+idx);
+		idx++;
+
+		if (tempChar == '(' || tempChar == '{' || tempChar == '[')
+		{
+			push(s, tempChar);
+		}
+		else
+		{
+			char pickedChar = peek(s);
+			switch (pickedChar)
+			{
+			case '(':
+				if (tempChar == ')')
+					pop(s);
+				break;
+
+			case '{':
+				if (tempChar == '}')
+					pop(s);			
+				break;
+				
+			case '[':
+				if (tempChar == ']')
+					pop(s);						
+				break;				
+			}
+		}		
+	}
+
+	if (s->ll.size == 0)
+		return 0;
+	else 
+		return 1;
 }
 
 ////////////////////////////////////////////////////////////

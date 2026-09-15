@@ -99,10 +99,40 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-// 최솟값 출력
+// 트리에서 가장 작은 값 반환
+// 다시 생각해보기
 int smallestValue(BTNode *node)
 {
-	
+	if (node == NULL)
+        return 0;
+    
+    // case 1 : 자식 0
+    if (node->left == NULL && node->right == NULL)
+    {
+        return node->item;
+    }
+
+    // case 2 : 왼쪽 자식만 있는 경우
+    if (node->right == NULL)
+    {
+        int left = smallestValue(node->left);
+        return (node->item > left)? left : node->item;
+    }
+
+    // case 3 : 오른쪽 자식만 있는 경우
+    if (node->left == NULL)
+    {
+        int right = smallestValue(node->right);
+        return (node->item > right)? right : node->item;
+    }
+
+    // case 4 : 둘 다 있는 경우
+    int left = smallestValue(node->left);
+    int right = smallestValue(node->right);
+    
+    int min = (left > right)? right : left;
+    
+    return (node->item > min)? min : node->item;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

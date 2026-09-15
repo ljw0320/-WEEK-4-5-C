@@ -102,10 +102,41 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 루트를 기준으로 대칭 시키는 함수
+//           1          
+//         /   \
+//        2     3       
+//       / \   / \
+//      4   5 6   7     
+//     /
+//    8                 
+// 위 트리를 아래와 같이 바꿔 줌
+//           1          
+//         /   \
+//        3     2       
+//       / \   / \
+//      7   6 5   4     
+//                 \
+//                  8
+// => 왼쪽 자식과 오른쪽 자식이 바뀜
 void mirrorTree(BTNode *node)
 {
-	/* add your code here */
+	if (node == NULL)
+        return;
+        
+    BTNode *left = node->left;
+    BTNode *right = node->right;
+
+    node->left = right;
+    node->right = left;
+
+    // 왼쪽 노드 
+    mirrorTree(node->left);
+
+    // 오른쪽 노드 
+    mirrorTree(node->right);
+
+    return;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

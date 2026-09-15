@@ -102,10 +102,29 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// m보다 작은 값들을 출력
+// 전위 순회 사용
+// 조건에 맞는 노드 stack에 넣기
 void printSmallerValues(BTNode *node, int m)
 {
-	/* add your code here */
+    if (node == NULL)   
+        return;
+
+    Stack *s;    
+    s->top = NULL;
+
+	if (node->item < m)
+    {
+        push(s, node);
+    }
+
+    // 왼쪽 자식 순회
+    printSmallerValues(node->left, m);
+
+    // 오른쪽 자식 순회
+    printSmallerValues(node->right, m);
+
+    // printTree(s->top->btnode);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -112,11 +112,36 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 입력된 트리가 동일한지 확인하여 동일하면 1, 아니면 0 반환
+// 트리의 구조와 각 노드의 값이 같아야함
+// 재귀 함수로 만들어서 풀기
+// 트리의 루트부터 같은 방향으로 하나씩 내려가면서 비교
+// 두 노드의 값이 다르거나 노드가 한쪽만 없다면 false
+// BTNode는 그 자체로 서브트리임
+// 전위 순회(루트->왼쪽->오른쪽)로 비교
 int identical(BTNode *tree1, BTNode *tree2)
+{    
+    // 둘다 노드가 없는 경우 1반환
+    if (tree1 == NULL && tree2 == NULL)      
+        return 1;  
+        
+    if ((tree1 == NULL && tree2 != NULL) || 
+        (tree1 != NULL && tree2 == NULL))    
+        return 0;            
 
-{
-   /* add your code here */
+    // root가 다를 경우 0 반환
+    if (tree1->item != tree2->item) 
+        return 0;
+
+    // 왼쪽 노드 순회
+    if (!identical(tree1->left, tree2->left))
+        return 0;
+    
+    // 오른쪽 노드 순회
+    if (!identical(tree1->right, tree2->right))
+        return 0;
+    
+    return 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////////

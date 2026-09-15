@@ -104,7 +104,22 @@ int main()
 */
 int sumOfOddNodes(BTNode *node)
 {
+    if (node == NULL) return 0;
+        
+    int sum = 0;
+
+    // 값이 홀수면 더해줌
+    if (node->item % 2 != 0)
+        sum += node->item;
     
+    // 왼쪽 자식 노드 확인
+    sum += sumOfOddNodes(node->left);
+
+    // 오른쪽 자식 노드 확인
+    sum += sumOfOddNodes(node->right);
+    
+    // 합 반환
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

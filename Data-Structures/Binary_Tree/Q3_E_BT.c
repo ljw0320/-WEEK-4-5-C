@@ -97,11 +97,32 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
+// base case : 노드가 없는 경우
+// (node->left == NULL && node->right != NULL) || (node->left != NULL && node->right == NULL)
+// 위의 두 개중 하나의 조건을 만족하면 1씩 더해줌. 아니면 0 더해줌
 
 int countOneChildNodes(BTNode *node)
-
 {
-    /* add your code here */
+    // base case
+    if (node == NULL)    
+        return 0;
+
+    int count = 0;
+
+    // 자식이 1개면 카운트 증가
+    if ((node->left == NULL && node->right != NULL) ||
+        (node->left != NULL && node->right == NULL))
+    {
+        count++;
+    }
+
+    // 왼쪽 순회 
+    count += countOneChildNodes(node->left);
+
+    // 오른쪽 순회
+    count += countOneChildNodes(node->right);
+
+    return count;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -229,4 +250,5 @@ void removeAll(BTNode **node)
         *node = NULL;
     }
 }
+
 
